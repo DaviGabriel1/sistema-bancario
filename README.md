@@ -7,60 +7,111 @@
 <a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
 </p>
 
-## About Laravel
+### **Levantamento de Requisitos**
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+#### **1. Requisitos Funcionais**
+- **Autenticação e Autorização**
+  - Cadastro de usuários (clientes e administradores).
+  - Login e logout.
+  - Recuperação de senha via e-mail.
+  - Controle de permissões (diferenciar cliente de administrador).
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+- **Gestão de Contas**
+  - Criar e visualizar contas bancárias associadas aos clientes.
+  - Atualizar dados pessoais dos clientes.
+  - Listar contas ativas e inativas (apenas para administradores).
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+- **Transações Bancárias**
+  - Depósitos, saques e transferências entre contas.
+  - Histórico de transações com filtros (data, valor, tipo).
+  - Saldo atualizado em tempo real.
 
-## Learning Laravel
+- **Relatórios e Estatísticas**
+  - Geração de relatórios financeiros em PDF (transações, saldo por período).
+  - Dashboard com gráficos (estatísticas de contas e transações).
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework.
+- **Notificações**
+  - Envio de notificações via e-mail (ex.: confirmação de transferência).
+  - Registro de notificações no MongoDB para histórico.
 
-You may also try the [Laravel Bootcamp](https://bootcamp.laravel.com), where you will be guided through building a modern Laravel application from scratch.
+#### **2. Requisitos Não Funcionais**
+- **Segurança**
+  - Senhas criptografadas (bcrypt ou argon2).
+  - Proteção contra CSRF e XSS.
+  - Validação no backend para entradas do usuário.
 
-If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Laracasts contains thousands of video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
+- **Escalabilidade**
+  - Uso de MongoDB para dados não estruturados (logs, notificações).
+  - MySQL para dados estruturados (contas, transações, usuários).
 
-## Laravel Sponsors
+- **Responsividade**
+  - Design responsivo com Tailwind CSS.
 
-We would like to extend our thanks to the following sponsors for funding Laravel development. If you are interested in becoming a sponsor, please visit the [Laravel Partners program](https://partners.laravel.com).
+- **Performance**
+  - Lazy loading de componentes (JavaScript).
+  - Cache para dados frequentemente acessados (ex.: saldo).
 
-### Premium Partners
+---
 
-- **[Vehikl](https://vehikl.com/)**
-- **[Tighten Co.](https://tighten.co)**
-- **[WebReinvent](https://webreinvent.com/)**
-- **[Kirschbaum Development Group](https://kirschbaumdevelopment.com)**
-- **[64 Robots](https://64robots.com)**
-- **[Curotec](https://www.curotec.com/services/technologies/laravel/)**
-- **[Cyber-Duck](https://cyber-duck.co.uk)**
-- **[DevSquad](https://devsquad.com/hire-laravel-developers)**
-- **[Jump24](https://jump24.co.uk)**
-- **[Redberry](https://redberry.international/laravel/)**
-- **[Active Logic](https://activelogic.com)**
-- **[byte5](https://byte5.de)**
-- **[OP.GG](https://op.gg)**
+### **Distribuição das Tecnologias**
+- **PHP (Laravel)**: Backend principal; gerenciar regras de negócio, rotas, e controle dos modelos.
+- **MySQL**: Armazenamento dos dados estruturados (ex.: usuários, contas, transações).
+- **MongoDB**: Armazenamento de logs, notificações, e dados históricos não estruturados.
+- **Blade**: Views dinâmicas; construção da interface em conjunto com Tailwind CSS.
+- **JavaScript**: Interações dinâmicas (ex.: validação de formulários, gráficos em tempo real).
+- **Tailwind CSS**: Estilização do frontend, responsividade.
+- **CSS puro**: Ajustes adicionais de estilos quando necessário.
+- **PDF Library (ex.: DomPDF)**: Geração de relatórios financeiros em PDF.
 
-## Contributing
+---
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
+### **Estrutura de Tabelas/Collections**
+#### **Tabelas (MySQL)**
+1. **users**
+   - id (PK)
+   - name
+   - email (unique)
+   - password
+   - role (cliente/admin)
+   - created_at, updated_at
 
-## Code of Conduct
+2. **accounts**
+   - id (PK)
+   - user_id (FK para users)
+   - account_number (unique)
+   - balance
+   - status (ativo/inativo)
+   - created_at, updated_at
 
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
+3. **transactions**
+   - id (PK)
+   - account_id (FK para accounts)
+   - type (deposito, saque, transferencia)
+   - amount
+   - created_at
 
-## Security Vulnerabilities
+4. **password_resets**
+   - email
+   - token
+   - created_at
 
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
+#### **Collections (MongoDB)**
+1. **notifications**
+   - user_id
+   - title
+   - message
+   - status (lido/não lido)
+   - timestamp
 
-## License
+2. **logs**
+   - action (ex.: "transferência realizada")
+   - user_id
+   - details (JSON contendo informações da ação)
+   - timestamp
 
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+---
+
+### **Funcionalidades Adicionais**
+- **API REST**: Criar endpoints REST para integração com possíveis aplicativos móveis.
+- **Job Queues**: Usar filas (Laravel Queue) para tarefas assíncronas, como envio de e-mails e notificações.
+- **Docker**: Containerizar a aplicação para facilitar a implantação e o desenvolvimento local.
