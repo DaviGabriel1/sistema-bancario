@@ -41,11 +41,11 @@
                     <header>
                         <nav>
                             <ul>
-                                <li>Cadastrar</li> <!--TODO: verificação de auth para logar, cadastrar e minha conta-->
-                                <li>Entrar</li>
-                                <li>Minha Conta</li>
-                                <li>sobre</li>
-                                <li>Ajuda</li>
+                                <a href="/register"><li>Cadastrar</li></a> <!--TODO: verificação de auth para logar, cadastrar e minha conta-->
+                                <a href="/login"><li>Entrar</li></a>
+                                <a href="/account"><li>Minha Conta</li></a>
+                                <a href="/about"><li>sobre</li></a>
+                                <a href="/help"><li>Ajuda</li></a>
                             </ul>
                         </nav>
                         <div class="flex lg:justify-center lg:col-start-2 ">

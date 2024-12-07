@@ -20,7 +20,7 @@ class User extends Authenticatable
     protected $fillable = [
         'name',
         'email',
-        'account_number',
+        'role',
         'password',
     ];
 
@@ -34,6 +34,9 @@ class User extends Authenticatable
         'remember_token',
     ];
 
+    public function accounts(){
+        return $this->hasMany(Accounts::class);
+    }
     /**
      * Get the attributes that should be cast.
      *
