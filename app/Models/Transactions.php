@@ -7,7 +7,7 @@ class Transactions extends Model
 {
     use HasFactory;
 
-    protected $table = "transaction";
+    protected $table = "transactions";
 
     protected $fillable = [
         'type',

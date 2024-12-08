@@ -22,8 +22,8 @@ class AppServiceProvider extends ServiceProvider
         $this->loadRoutesFrom(base_path('routes/web.php'));
         //$this->loadRoutesFrom(base_path('routes/api.php'));
     
-        // Carregar as rotas da pasta 'user'
-        foreach (glob(base_path('routes/user/*.php')) as $file) {
+        // Carregar as rotas da pasta 'auth'
+        foreach (glob(base_path('routes/auth/*.php')) as $file) {
             require $file;
         }
     }

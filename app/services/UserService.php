@@ -14,4 +14,8 @@ class UserService{
     public function registerUser($data){
         $this->userRepository->create($data);
     }
+
+    public function findUser($email){
+        return $this->userRepository->findUserByEmail($email);
+    }
 }

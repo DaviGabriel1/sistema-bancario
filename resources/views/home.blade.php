@@ -41,15 +41,18 @@
                     <header>
                         <nav>
                             <ul>
-                                <a href="/user/register"><li>Cadastrar</li></a> <!--TODO: verificação de auth para logar, cadastrar e minha conta-->
-                                <a href="/user/login"><li>Entrar</li></a>
-                                <a href="/user/account"><li>Minha Conta</li></a>
+                                @if (Auth::check())
+                                <a href="/auth/account"><li>Minha Conta</li></a>
+                                @else
+                                <a href="/auth/register"><li>Cadastrar</li></a> <!--TODO: verificação de auth para logar, cadastrar e minha conta-->
+                                <a href="/auth/login"><li>Entrar</li></a>
+                                @endif
                                 <a href="/about"><li>sobre</li></a>
-                                <a href="/help"><li>Ajuda</li></a>
+                                <a href="/help"><li>Ajuda</li></a> <!-- envio de emails para tirar dúvidas -->
                             </ul>
                         </nav>
                         <div class="flex lg:justify-center lg:col-start-2 ">
-                            <img src="{{asset('logo-banco-bg-escuro.png')}}" alt="" class="w-14 h-auto">
+                            <a href="/"><img src="{{asset('logo-banco-bg-escuro.png')}}" alt="" class="w-14 h-auto"></a>
                         </div>
                     </header>
 

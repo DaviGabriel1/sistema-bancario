@@ -1,7 +1,7 @@
 @extends('home')
 
 @section('conteudo')
-<form action="{{route('user.store')}}" method="POST">
+<form action="{{route('auth.registerUser')}}" method="POST">
     @csrf
     <div class="form-content"> <!--TODO: validações, sweetalerts e páginas de erro -->
         <label for="name">Nome: </label>
@@ -16,8 +16,8 @@
         <input type="password" placeholder="digite a sua senha..." name="password" required>
     </div>
     <div class="form-content">
-        <label for="confirm-senha">Confirmação de senha: </label>
-        <input type="password" placeholder="digite a sua confirmação de senha..." name="confirm-senha" required>
+        <label for="confirm_password">Confirmação de senha: </label>
+        <input type="password" placeholder="digite a sua confirmação de senha..." name="confirm_password" required>
     </div>
     <input type="submit" value="Cadastrar">
 </form>

@@ -26,7 +26,6 @@ class UserController extends Controller
      */
     public function create()
     {
-        return view('user.register');
     }
 
     /**
@@ -34,15 +33,12 @@ class UserController extends Controller
      */
     public function store(Request $request)
     {
-        $data = [
-            "name" => $request->name,
-            "email" => $request->email,
-            "password" =>$request->password,
-            "role" => 1,
+    }
 
-        ];
-        $this->userService->registerUser($data);
-        return redirect()->route('home');
+    public function formLogin(){
+    }
+
+    public function loginUser(){
     }
 
     /**
