@@ -20,7 +20,7 @@
             </style>
         @endif
         <style>
-            *{
+            body{
                 color:#f6f6f6;
                 padding:10px;
             }
@@ -41,20 +41,20 @@
                     <header>
                         <nav>
                             <ul>
-                                <a href="/register"><li>Cadastrar</li></a> <!--TODO: verificação de auth para logar, cadastrar e minha conta-->
-                                <a href="/login"><li>Entrar</li></a>
-                                <a href="/account"><li>Minha Conta</li></a>
+                                <a href="/user/register"><li>Cadastrar</li></a> <!--TODO: verificação de auth para logar, cadastrar e minha conta-->
+                                <a href="/user/login"><li>Entrar</li></a>
+                                <a href="/user/account"><li>Minha Conta</li></a>
                                 <a href="/about"><li>sobre</li></a>
                                 <a href="/help"><li>Ajuda</li></a>
                             </ul>
                         </nav>
                         <div class="flex lg:justify-center lg:col-start-2 ">
-                            <img src="logo-banco-bg-escuro.png" alt="" class="w-14 h-auto">
+                            <img src="{{asset('logo-banco-bg-escuro.png')}}" alt="" class="w-14 h-auto">
                         </div>
                     </header>
 
                     <main class="mt-6">
-                        <h1>Conteúdo</h1>
+                        @yield('conteudo')
                     </main>
 
                     <footer class="py-16 text-center text-sm">

@@ -7,6 +7,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 class Accounts extends Model
 {
     use HasFactory;
+    protected $table = "accounts";
 
     protected $fillable = [
         "account_number",

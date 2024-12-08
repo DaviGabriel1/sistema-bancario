@@ -19,6 +19,12 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot(): void
     {
-        //
+        $this->loadRoutesFrom(base_path('routes/web.php'));
+        //$this->loadRoutesFrom(base_path('routes/api.php'));
+    
+        // Carregar as rotas da pasta 'user'
+        foreach (glob(base_path('routes/user/*.php')) as $file) {
+            require $file;
+        }
     }
 }
